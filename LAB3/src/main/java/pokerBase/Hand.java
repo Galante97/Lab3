@@ -43,7 +43,7 @@ public class Hand {
 	private void setBestCardsInHand(ArrayList<Card> bestCardsInHand) {
 		BestCardsInHand = bestCardsInHand;
 	}
-
+ 
 	public HandScore getHandScore() {
 		return HandScore;
 	}

@@ -21,7 +21,7 @@ import pokerEnums.eRank;
 import pokerEnums.eSuit;
 
 public class HandTest {
-
+ 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 	}
@@ -943,6 +943,29 @@ public class HandTest {
 		
 		assertEquals(hs.getHiHand(),eRank.ACE.getiRankNbr());	
 	}
+	
+	@Test
+	public void TestNatRoyalFlush() {
+		
+		HandScore hs = new HandScore();
+		ArrayList<Card> NatRoyalFlush = new ArrayList<Card>();
+		NatRoyalFlush.add(new Card(eSuit.CLUBS,eRank.TEN,0));
+		NatRoyalFlush.add(new Card(eSuit.CLUBS,eRank.JACK,0));
+		NatRoyalFlush.add(new Card(eSuit.CLUBS,eRank.QUEEN,0));		
+		NatRoyalFlush.add(new Card(eSuit.CLUBS,eRank.KING,0));
+		NatRoyalFlush.add(new Card(eSuit.CLUBS,eRank.ACE,0));
+		Collections.sort(NatRoyalFlush);
+		Hand h = new Hand();
+		h = SetHand(NatRoyalFlush,h);
+		
+		boolean bActualIsNatRoyalFlush = Hand.isHandNatRoyalFlush(h, hs);
+		boolean bExpectedIsNatRoyalFlush = true;
+		
+		assertEquals(bExpectedIsNatRoyalFlush,bActualIsNatRoyalFlush);		
+		
+		assertEquals(hs.getHiHand(),eRank.ACE.getiRankNbr());	
+	}
+	
 	
 	@Test
 	public void TestRoyalFlushEval() {
