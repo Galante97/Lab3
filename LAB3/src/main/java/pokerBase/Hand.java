@@ -126,6 +126,15 @@ public class Hand {
 		return h;
 	}
 
+	private static boolean containsJoker(ArrayList<Card> cards){
+		for (Card c : cards) {
+			if (c.geteRank() == eRank.JOKER) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	private static boolean isHandFlush(ArrayList<Card> cards) {
 		int cnt = 0;
 		boolean bIsFlush = false;
@@ -180,6 +189,21 @@ public class Hand {
 		return bIsStraight;
 	}
 
+	public static boolean isHandNatRoyalFlush(Hand h, HandScore hs){
+		if(containsJoker(h.getCardsInHand())) return false;
+		Card c = new Card();
+		boolean isRoyalFlush = false;
+		if ((isHandFlush(h.getCardsInHand())) && (isStraight(h.getCardsInHand(), c))) {
+			if (c.geteRank() == eRank.ACE) {
+				isRoyalFlush = true;
+				hs.setHandStrength(eHandStrength.RoyalFlush.getHandStrength());
+				hs.setHiHand(h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteRank().getiRankNbr());
+				hs.setLoHand(0);
+			}
+		}
+		return isRoyalFlush;
+	}
+
 	public static boolean isHandFiveOfAKind(Hand h, HandScore hs) {
 
 		int iCnt = 0;
@@ -205,6 +229,7 @@ public class Hand {
 		}
 		return isFive;
 	}
+
 
 	public static boolean isHandRoyalFlush(Hand h, HandScore hs) {
 
@@ -271,7 +296,7 @@ public class Hand {
 		if ((h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteRank() == h.getCardsInHand()
 				.get(eCardNo.ThirdCard.getCardNo()).geteRank())
 				&& (h.getCardsInHand().get(eCardNo.FourthCard.getCardNo()).geteRank() == h.getCardsInHand()
-						.get(eCardNo.FifthCard.getCardNo()).geteRank())) {
+				.get(eCardNo.FifthCard.getCardNo()).geteRank())) {
 			isFullHouse = true;
 			hs.setHandStrength(eHandStrength.FullHouse.getHandStrength());
 			hs.setHiHand(h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteRank().getiRankNbr());
@@ -279,7 +304,7 @@ public class Hand {
 		} else if ((h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteRank() == h.getCardsInHand()
 				.get(eCardNo.SecondCard.getCardNo()).geteRank())
 				&& (h.getCardsInHand().get(eCardNo.ThirdCard.getCardNo()).geteRank() == h.getCardsInHand()
-						.get(eCardNo.FifthCard.getCardNo()).geteRank())) {
+				.get(eCardNo.FifthCard.getCardNo()).geteRank())) {
 			isFullHouse = true;
 			hs.setHandStrength(eHandStrength.FullHouse.getHandStrength());
 			hs.setHiHand(h.getCardsInHand().get(eCardNo.ThirdCard.getCardNo()).geteRank().getiRankNbr());
@@ -364,7 +389,7 @@ public class Hand {
 		if ((h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteRank() == h.getCardsInHand()
 				.get(eCardNo.SecondCard.getCardNo()).geteRank())
 				&& (h.getCardsInHand().get(eCardNo.ThirdCard.getCardNo()).geteRank() == h.getCardsInHand()
-						.get(eCardNo.FourthCard.getCardNo()).geteRank())) {
+				.get(eCardNo.FourthCard.getCardNo()).geteRank())) {
 			isTwoPair = true;
 			hs.setHandStrength(eHandStrength.TwoPair.getHandStrength());
 			hs.setHiHand(h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteRank().getiRankNbr());
@@ -374,7 +399,7 @@ public class Hand {
 		} else if ((h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteRank() == h.getCardsInHand()
 				.get(eCardNo.SecondCard.getCardNo()).geteRank())
 				&& (h.getCardsInHand().get(eCardNo.FourthCard.getCardNo()).geteRank() == h.getCardsInHand()
-						.get(eCardNo.FifthCard.getCardNo()).geteRank())) {
+				.get(eCardNo.FifthCard.getCardNo()).geteRank())) {
 			isTwoPair = true;
 			hs.setHandStrength(eHandStrength.TwoPair.getHandStrength());
 			hs.setHiHand(h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteRank().getiRankNbr());
@@ -384,7 +409,7 @@ public class Hand {
 		} else if ((h.getCardsInHand().get(eCardNo.SecondCard.getCardNo()).geteRank() == h.getCardsInHand()
 				.get(eCardNo.ThirdCard.getCardNo()).geteRank())
 				&& (h.getCardsInHand().get(eCardNo.FourthCard.getCardNo()).geteRank() == h.getCardsInHand()
-						.get(eCardNo.FifthCard.getCardNo()).geteRank())) {
+				.get(eCardNo.FifthCard.getCardNo()).geteRank())) {
 			isTwoPair = true;
 			hs.setHandStrength(eHandStrength.TwoPair.getHandStrength());
 			hs.setHiHand(h.getCardsInHand().get(eCardNo.SecondCard.getCardNo()).geteRank().getiRankNbr());
@@ -481,7 +506,7 @@ public class Hand {
 				if (h1.getHandScore().getKickers().size() > 0) {
 					result = h2.getHandScore().getKickers().get(eCardNo.FirstCard.getCardNo()).geteRank().getiRankNbr()
 							- h1.getHandScore().getKickers().get(eCardNo.FirstCard.getCardNo()).geteRank()
-									.getiRankNbr();
+							.getiRankNbr();
 				}
 				if (result != 0) {
 					return result;
@@ -492,7 +517,7 @@ public class Hand {
 				if (h1.getHandScore().getKickers().size() > 1) {
 					result = h2.getHandScore().getKickers().get(eCardNo.SecondCard.getCardNo()).geteRank().getiRankNbr()
 							- h1.getHandScore().getKickers().get(eCardNo.SecondCard.getCardNo()).geteRank()
-									.getiRankNbr();
+							.getiRankNbr();
 				}
 				if (result != 0) {
 					return result;
@@ -503,7 +528,7 @@ public class Hand {
 				if (h1.getHandScore().getKickers().size() > 2) {
 					result = h2.getHandScore().getKickers().get(eCardNo.ThirdCard.getCardNo()).geteRank().getiRankNbr()
 							- h1.getHandScore().getKickers().get(eCardNo.ThirdCard.getCardNo()).geteRank()
-									.getiRankNbr();
+							.getiRankNbr();
 				}
 				if (result != 0) {
 					return result;
@@ -514,7 +539,7 @@ public class Hand {
 				if (h1.getHandScore().getKickers().size() > 3) {
 					result = h2.getHandScore().getKickers().get(eCardNo.FourthCard.getCardNo()).geteRank().getiRankNbr()
 							- h1.getHandScore().getKickers().get(eCardNo.FourthCard.getCardNo()).geteRank()
-									.getiRankNbr();
+							.getiRankNbr();
 				}
 				if (result != 0) {
 					return result;
@@ -523,5 +548,21 @@ public class Hand {
 			return 0;
 		}
 	};
+	
+	public static Hand pickBestHand(ArrayList<Hand> hands) throws Exception{
+		Hand topHand =hands.get(0);
+		for(int i=1; i<hands.size(); i++){
+			if(HandRank.compare(topHand, hands.get(i)) < 0) {
+				topHand=hands.get(i);
+			}
+			if(HandRank.compare(topHand, hands.get(i)) == 0) {
+				throw(new Exception("Its a TIE!"));
+			}
+		}
+		return topHand;
+	}
 
 }
+
+
+

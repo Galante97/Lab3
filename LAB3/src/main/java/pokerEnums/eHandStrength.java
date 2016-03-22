@@ -1,6 +1,13 @@
 package pokerEnums;
 
 public enum eHandStrength {
+	
+	NaturalRoyalFlush(120, "isHandNatualRoyalFlush"){
+		@Override
+		public String toString(){
+			return "Natural Royal Flush";
+		}
+	},
 
 	FiveOfAKind(110, "isHandFiveOfAKind") {
 		@Override

@@ -1231,7 +1231,7 @@ public class HandTest {
 	public void TestHandSortTons() {
 	
 		/*
-		 * Create a thousand random hands... I want to see if the sort / comparitor for hand works.
+		 * Create a thousand random hands... I want to see if the sort / comparator for hand works.
 		 */
 		int iCreateHands = 1000;
 		ArrayList<Hand> hands = new ArrayList<Hand>();
